@@ -198,7 +198,7 @@ class UpBlock(nn.Module):
         self.bn3 = nn.BatchNorm1d(out_filters)
         # self.dropout3 = nn.Dropout3d(p=dropout_rate)
 
-        self.up_subm = sp.SparseInverseConv3d(out_filters, out_filters, kernel_size=3, indice_key=up_key,
+        self.up_subm = spconv.SparseInverseConv3d(out_filters, out_filters, kernel_size=3, indice_key=up_key,
                                                   bias=False)
 
         self.weight_initialization()
