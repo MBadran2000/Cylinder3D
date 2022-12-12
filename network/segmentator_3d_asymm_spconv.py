@@ -230,7 +230,7 @@ class UpBlock(nn.Module):
         upE = upE.replace_feature(self.act2(upE.features))
         #upE.features = self.act2(upE.features)
         upE = upE.replace_feature(self.bn2(upE.features))
-        upE.features = self.bn2(upE.features)
+        #upE.features = self.bn2(upE.features)
 
         upE = self.conv3(upE)
         upE = upE.replace_feature(self.act3(upE.features))
