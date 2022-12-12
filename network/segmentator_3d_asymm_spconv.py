@@ -48,7 +48,8 @@ def conv1x1(in_planes, out_planes, stride=1, indice_key=None):
 
 
 class ResContextBlock(nn.Module):
-    def __init__(self, in_filters, out_filters, kernel_size=(3, 3, 3), stride=1, indice_key=None):
+    #def __init__(self, in_filters, out_filters, kernel_size=(3, 3, 3), stride=1, indice_key=None):
+    def __init__(self, in_filters, out_filters, kernel_size=(1, 3, 3), stride=1, indice_key=None):
         super(ResContextBlock, self).__init__()
         self.conv1 = conv1x3(in_filters, out_filters, indice_key=indice_key + "bef")
         self.bn0 = nn.BatchNorm1d(out_filters)
