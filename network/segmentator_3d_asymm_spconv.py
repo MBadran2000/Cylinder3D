@@ -75,7 +75,8 @@ class ResContextBlock(nn.Module):
         shortcut = self.conv1(x)
         shortcut = shortcut.replace_feature(self.act1(shortcut.features))
         #shortcut.features = self.act1(shortcut.features)
-        shortcut.features = self.bn0(shortcut.features)
+        shortcut = shortcut.replace_feature(self.bn0(shortcut.features))
+        #shortcut.features = self.bn0(shortcut.features)
 
         shortcut = self.conv1_2(shortcut)
         shortcut.features = self.act1_2(shortcut.features)
@@ -135,7 +136,8 @@ class ResBlock(nn.Module):
         shortcut = self.conv1(x)
         shortcut = shortcut.replace_feature(self.act1(shortcut.features))
         #shortcut.features = self.act1(shortcut.features)
-        shortcut.features = self.bn0(shortcut.features)
+        shortcut = shortcut.replace_feature(self.bn0(shortcut.features))
+        #shortcut.features = self.bn0(shortcut.features)
 
         shortcut = self.conv1_2(shortcut)
         shortcut.features = self.act1_2(shortcut.features)
@@ -232,17 +234,23 @@ class ReconBlock(nn.Module):
 
     def forward(self, x):
         shortcut = self.conv1(x)
-        shortcut.features = self.bn0(shortcut.features)
+        shortcut = shortcut.replace_feature(self.bn0(shortcut.features))
+        #shortcut.features = self.bn0(shortcut.features)
         shortcut = shortcut.replace_feature(self.act1(shortcut.features))
         #shortcut.features = self.act1(shortcut.features)
 
         shortcut2 = self.conv1_2(x)
-        shortcut2.features = self.bn0_2(shortcut2.features)
-        shortcut2.features = self.act1_2(shortcut2.features)
+        shortcut2 = shortcut2.replace_feature(self.bn0_2(shortcut.features))
+        #shortcut2.features = self.bn0_2(shortcut2.features)
+        shortcut2 = shortcut2.replace_feature(self.act1_2(shortcut.features))
+        #shortcut2.features = self.act1_2(shortcut2.features)
 
         shortcut3 = self.conv1_3(x)
-        shortcut3.features = self.bn0_3(shortcut3.features)
-        shortcut3.features = self.act1_3(shortcut3.features)
+        shortcut3 = shortcut3.replace_feature(self.bn0_3(shortcut.features))
+        #shortcut3.features = self.bn0_3(shortcut3.features)
+        shortcut3 = shortcut3.replace_feature(self.act1_3(shortcut.features))
+        #shortcut3.features = self.act1_3(shortcut3.features)
+        
         shortcut.features = shortcut.features + shortcut2.features + shortcut3.features
 
         shortcut.features = shortcut.features * x.features
