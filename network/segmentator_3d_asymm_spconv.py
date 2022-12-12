@@ -217,8 +217,8 @@ class UpBlock(nn.Module):
 
         ## upsample
         upA = self.up_subm(upA)
-
-        upA.features = upA.features + skip.features
+        upA = upA.replace_feature(upA.features + skip.features)
+        #upA.features = upA.features + skip.features
 
         upE = self.conv1(upA)
         upE = upE.replace_feature(self.act1(upE.features))
