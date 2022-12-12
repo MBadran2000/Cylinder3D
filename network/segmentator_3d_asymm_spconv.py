@@ -82,8 +82,10 @@ class ResContextBlock(nn.Module):
         #shortcut.features = self.bn0(shortcut.features)
 
         shortcut = self.conv1_2(shortcut)
-        shortcut.features = self.act1_2(shortcut.features)
-        shortcut.features = self.bn0_2(shortcut.features)
+        shortcut = shortcut.replace_feature(self.act1_2(shortcut.features))
+        #shortcut.features = self.act1_2(shortcut.features)
+        shortcut = shortcut.replace_feature(self.bn0_2(shortcut.features))
+        #shortcut.features = self.bn0_2(shortcut.features)
 
         resA = self.conv2(x)
         resA.features = self.act2(resA.features)
@@ -143,10 +145,13 @@ class ResBlock(nn.Module):
         #shortcut.features = self.bn0(shortcut.features)
 
         shortcut = self.conv1_2(shortcut)
-        shortcut.features = self.act1_2(shortcut.features)
-        shortcut.features = self.bn0_2(shortcut.features)
+        shortcut = shortcut.replace_feature(self.act1_2(shortcut.features))
+        #shortcut.features = self.act1_2(shortcut.features)
+        shortcut = shortcut.replace_feature(self.bn0_2(shortcut.features))
+        #shortcut.features = self.bn0_2(shortcut.features)
 
         resA = self.conv2(x)
+        
         resA.features = self.act2(resA.features)
         resA.features = self.bn1(resA.features)
 
