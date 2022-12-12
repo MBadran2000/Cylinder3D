@@ -160,8 +160,8 @@ if __name__ == '__main__':
     # Training settings
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('-y', '--config_path', default='config/semantickitti.yaml')
-    args = parser.parse_args()
-
+    # args = parser.parse_args()
+    args, unknown = parser.parse_known_args()
     print(' '.join(sys.argv))
     print(args)
     main(args)
