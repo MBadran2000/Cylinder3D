@@ -286,7 +286,7 @@ class Asymm_3d_spconv(nn.Module):
         coors = coors.int()
         # import pdb
         # pdb.set_trace()
-        ret = spconv.SparseConvTensor(voxel_features, coors, self.sparse_shape,
+        ret = sp.SparseConvTensor(voxel_features, coors, self.sparse_shape,
                                       batch_size)
         ret = self.downCntx(ret)
         down1c, down1b = self.resBlock2(ret)
