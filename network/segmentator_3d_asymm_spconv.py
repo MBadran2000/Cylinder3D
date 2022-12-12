@@ -98,7 +98,8 @@ class ResContextBlock(nn.Module):
         #resA.features = self.act3(resA.features)
         resA = resA.replace_feature(self.bn2(resA.features))
         #resA.features = self.bn2(resA.features)
-        resA.features = resA.features + shortcut.features
+        resA = resA.replace_feature(resA.features + shortcut.features)
+        #resA.features = resA.features + shortcut.features
 
         return resA
 
@@ -165,8 +166,8 @@ class ResBlock(nn.Module):
         #resA.features = self.act3(resA.features)
         resA = resA.replace_feature(self.bn2(resA.features))
         #resA.features = self.bn2(resA.features)
-
-        resA.features = resA.features + shortcut.features
+        resA = resA.replace_feature(resA.features + shortcut.features)
+        #resA.features = resA.features + shortcut.features
 
         if self.pooling:
             resB = self.pool(resA)
@@ -273,10 +274,10 @@ class ReconBlock(nn.Module):
         #shortcut3.features = self.bn0_3(shortcut3.features)
         shortcut3 = shortcut3.replace_feature(self.act1_3(shortcut.features))
         #shortcut3.features = self.act1_3(shortcut3.features)
-        
-        shortcut.features = shortcut.features + shortcut2.features + shortcut3.features
-
-        shortcut.features = shortcut.features * x.features
+        shortcut = shortcut.replace_feature(shortcut.features+shortcut2.features+shortcut3.features)
+        #shortcut.features = shortcut.features + shortcut2.features + shortcut3.features
+        shortcut = shortcut.replace_feature(shortcut.features* x.features)
+        #shortcut.features = shortcut.features * x.features
 
         return shortcut
 
@@ -334,8 +335,8 @@ class Asymm_3d_spconv(nn.Module):
         up1e = self.upBlock3(up2e, down1b)
 
         up0e = self.ReconNet(up1e)
-
-        up0e.features = torch.cat((up0e.features, up1e.features), 1)
+        up0e = up0e.replace_feature(torch.cat((up0e.features, up1e.features), 1))
+        #up0e.features = torch.cat((up0e.features, up1e.features), 1)
 
         logits = self.logits(up0e)
         y = logits.dense()
