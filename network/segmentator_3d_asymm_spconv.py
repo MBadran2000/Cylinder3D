@@ -73,7 +73,8 @@ class ResContextBlock(nn.Module):
 
     def forward(self, x):
         shortcut = self.conv1(x)
-        shortcut.features = self.act1(shortcut.features)
+        shortcut = shortcut.replace_feature(self.act1(shortcut.features))
+        #shortcut.features = self.act1(shortcut.features)
         shortcut.features = self.bn0(shortcut.features)
 
         shortcut = self.conv1_2(shortcut)
@@ -132,7 +133,8 @@ class ResBlock(nn.Module):
 
     def forward(self, x):
         shortcut = self.conv1(x)
-        shortcut.features = self.act1(shortcut.features)
+        shortcut = shortcut.replace_feature(self.act1(shortcut.features))
+        #shortcut.features = self.act1(shortcut.features)
         shortcut.features = self.bn0(shortcut.features)
 
         shortcut = self.conv1_2(shortcut)
@@ -231,7 +233,8 @@ class ReconBlock(nn.Module):
     def forward(self, x):
         shortcut = self.conv1(x)
         shortcut.features = self.bn0(shortcut.features)
-        shortcut.features = self.act1(shortcut.features)
+        shortcut = shortcut.replace_feature(self.act1(shortcut.features))
+        #shortcut.features = self.act1(shortcut.features)
 
         shortcut2 = self.conv1_2(x)
         shortcut2.features = self.bn0_2(shortcut2.features)
