@@ -44,7 +44,7 @@ train_data_loader:
   data_path: "/content/drive/MyDrive/Graduation_Project/sementic_segmentation/sementicKitti/unzip/dataset/sequences/"
   imageset: "train"
   return_ref: True
-  batch_size: 2
+  batch_size: 1
   shuffle: True
   num_workers: 4
 
